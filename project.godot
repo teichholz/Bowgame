@@ -1,0 +1,41 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "AnimatedSprite",
+"class": "com_example_game_Bow",
+"language": "Kotlin",
+"path": "res://src/main/kotlin/com/example/game/Bow.kt"
+}, {
+"base": "Line2D",
+"class": "com_example_game_GCurve",
+"language": "Kotlin",
+"path": "res://src/main/kotlin/com/example/game/GCurve.kt"
+}, {
+"base": "Node2D",
+"class": "com_example_game_Simple",
+"language": "Kotlin",
+"path": "res://src/main/kotlin/com/example/game/Simple.kt"
+} ]
+_global_script_class_icons={
+"com_example_game_Bow": "",
+"com_example_game_GCurve": "",
+"com_example_game_Simple": ""
+}
+
+[application]
+
+config/name="test2"
+run/main_scene="res://Scene.tscn"
+config/icon="res://icon.png"
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
