@@ -17,15 +17,16 @@ fun AnimatedSprite.center(): Vector2 {
 class Simple: Node2D() {
 
 	lateinit var bow: Bow
+	lateinit var arrow: Arrow
 	lateinit var gCurve: GCurve
 	var mousePos: Vector2 = getGlobalMousePosition()
 	var time: Double = 0.0
 
 	@RegisterFunction
 	override fun _ready() {
-		GD.print("Hello world!")
 		bow = getNodeAs<Bow>("Bow")!!
 		gCurve = getNodeAs<GCurve>("GCurve")!!
+		arrow = getNodeAs<Arrow>("Arrow")!!
 	}
 
 	@RegisterFunction
@@ -34,7 +35,7 @@ class Simple: Node2D() {
 
 		bow.lookAt(mousePos)
 
-		gCurve.draw(bow.center(), 25.0, bow.angle(mousePos))
+		gCurve.draw(bow.center(), 300.0, bow.angle(mousePos))
 		if(time > 0.1) {
 			time = 0.0
 		}
@@ -42,10 +43,7 @@ class Simple: Node2D() {
 
 	@RegisterFunction
 	override fun _draw() {
-		bow.let {
-			drawCircle(it.center(), 2.0, Color.aqua)
-		}
-
+		drawCircle(bow.center(), 4.0, Color.aqua)
 	}
 
 
@@ -54,6 +52,11 @@ class Simple: Node2D() {
 		if (event is InputEventMouseMotion) {
 			// get direction the cursor points to from bow
 			mousePos = event.position
+		}
+		if (event is InputEventMouseButton) {
+			if (event.pressed) {
+				arrow.shootFrom(bow.center(), bow.angle(mousePos), 300.0)
+			}
 		}
 	}
 

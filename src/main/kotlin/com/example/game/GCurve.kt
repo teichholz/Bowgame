@@ -1,47 +1,45 @@
 package com.example.game
 
+import godot.CanvasItem
 import godot.Line2D
+import godot.Node2D
 import godot.annotation.RegisterClass
 import godot.annotation.RegisterFunction
+import godot.core.Color
 import godot.core.PoolVector2Array
 import godot.core.Vector2
 import godot.global.GD
 
 @RegisterClass
-class GCurve : Line2D() {
+class GCurve : Node2D() {
 
-	// Called when the node enters the scene tree for the first time.
-	@RegisterFunction
-	override fun _ready() {
-		this.jointMode = 2
-		//addPoint(Vector2(50, 50))
-		//addPoint(Vector2(100, 100))
-		//addPoint(Vector2(200, 200))
-	}
+	var points: PoolVector2Array = PoolVector2Array()
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	@RegisterFunction
-	override fun _process(delta: Double) {
-		
+	override fun _draw() {
+		for (point in points) {
+			drawCircle(point, 2.0, Color.white)
+		}
 	}
 
 	fun draw(origin: Vector2, speed: Double /* px/s */ , cosAndSin: CosAndSin) {
-		clearPoints()
-		position = origin
+		//clearPoints()
+		this.position = origin
 		val sx = cosAndSin.cos * speed
 		val sy = cosAndSin.sin * speed
-		val g = 0.5 // -1px/t^2
+		val g = Constants.gravity // px/s^2
 		fun rx(t: Double): Double { return position.x + sx * t }
 		fun ry(t: Double): Double { return position.y + -sy * t + 0.5 * g * t * t  }
-		val delta = 0.5
+		val delta = 0.25
 		var t: Double = 0.0
-		val points = PoolVector2Array()
+		val ps = PoolVector2Array()
 		while (t < 100.0) {
 			val p = Vector2(rx(t), ry(t))
-			points.append(toLocal(p))
+			ps.append(toLocal(p))
 			t += delta
 		}
-		this.points = points
+		this.points = ps
+		update()
 	}
 
 	override fun toString(): String {
