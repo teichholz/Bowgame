@@ -1,40 +1,42 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/main/kotlin/com/example/game/Simple.kt" type="Script" id=1]
-[ext_resource path="res://bow/bow pull/bow pull with arrow/bow pull3.png" type="Texture" id=2]
-[ext_resource path="res://bow/bow pull/bow pull with arrow/bow pull1.png" type="Texture" id=3]
-[ext_resource path="res://bow/bow relese/bow relese with arrow/bow relese3.png" type="Texture" id=4]
-[ext_resource path="res://bow/bow relese/bow relese with arrow/bow relese2.png" type="Texture" id=5]
-[ext_resource path="res://bow/bow relese/bow relese with arrow/bow relese1.png" type="Texture" id=6]
-[ext_resource path="res://bow/bow pull/bow pull with arrow/bow pull2.png" type="Texture" id=7]
-[ext_resource path="res://src/main/kotlin/com/example/game/Bow.kt" type="Script" id=8]
-[ext_resource path="res://src/main/kotlin/com/example/game/GCurve.kt" type="Script" id=9]
+[ext_resource path="res://Bow.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/main/kotlin/com/example/game/FPS.kt" type="Script" id=12]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 127, 369.5 )
+
+[sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ ExtResource( 3 ), ExtResource( 7 ), ExtResource( 2 ) ],
+"frames": [  ],
 "loop": true,
-"name": "pull",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "release",
+"name": "default",
 "speed": 5.0
 } ]
 
 [node name="Scene" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="Bow" type="AnimatedSprite" parent="."]
-position = Vector2( 29, 559 )
-scale = Vector2( 1, 1.0625 )
-frames = SubResource( 1 )
-animation = "pull"
-script = ExtResource( 8 )
+[node name="FPS" type="Label" parent="."]
+margin_left = 934.0
+margin_top = 13.0
+margin_right = 990.0
+margin_bottom = 37.0
+script = ExtResource( 12 )
 
-[node name="GCurve" type="Line2D" parent="."]
-scale = Vector2( 1.17339, 0.918033 )
-points = PoolVector2Array( 30.6804, 23.9643 )
-width = 5.0
-script = ExtResource( 9 )
+[node name="ShootingArea" type="Area2D" parent="."]
+position = Vector2( 50, 195 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShootingArea"]
+position = Vector2( 43, 102 )
+shape = SubResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Orchestrator" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2, 0 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 4 )

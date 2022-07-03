@@ -1,0 +1,96 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://src/main/kotlin/com/example/game/bow/Orchestrator.kt" type="Script" id=1]
+[ext_resource path="res://src/main/kotlin/com/example/game/bow/Bow.kt" type="Script" id=2]
+[ext_resource path="res://src/main/kotlin/com/example/game/bow/GCurve.kt" type="Script" id=3]
+[ext_resource path="res://bow/bow pull/bow pull with arrow/bow pull3.png" type="Texture" id=4]
+[ext_resource path="res://bow/Bow2.png" type="Texture" id=5]
+[ext_resource path="res://bow/bow pull/bow pull with arrow/bow pull2.png" type="Texture" id=6]
+[ext_resource path="res://bow/bow relese/bow relese with arrow/bow relese1.png" type="Texture" id=7]
+[ext_resource path="res://bow/bow relese/bow relese with arrow/bow relese2.png" type="Texture" id=8]
+[ext_resource path="res://bow/bow relese/bow relese with arrow/bow relese3.png" type="Texture" id=9]
+[ext_resource path="res://bow/bow pull/bow pull with arrow/bow pull1.png" type="Texture" id=10]
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 0, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 64, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 128, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 0, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 64, 128, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "release",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 6 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "pull2",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "pull",
+"speed": 5.0
+} ]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+max_speed = 500.0
+
+[node name="Bow" type="AnimatedSprite" parent="."]
+position = Vector2( 115, 325 )
+scale = Vector2( 1, 1.0625 )
+frames = SubResource( 1 )
+animation = "pull"
+frame = 3
+script = ExtResource( 2 )
+
+[node name="GCurve" type="Line2D" parent="Bow"]
+position = Vector2( -29, -526.118 )
+scale = Vector2( 1.17339, 0.864031 )
+points = PoolVector2Array( 183.23, 418.286 )
+width = 5.0
+script = ExtResource( 3 )
+
+[node name="SpeedBar" type="ProgressBar" parent="Bow"]
+margin_left = -16.0
+margin_top = 33.0
+margin_right = 22.0
+margin_bottom = 49.0
+percent_visible = false
